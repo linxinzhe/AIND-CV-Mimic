@@ -103,6 +103,10 @@ detector.addEventListener("onInitializeSuccess", function() {
 
   // TODO(optional): Call a function to initialize the game, if needed
   // <your code here>
+  
+  targetEmoji=getRandomEmoji()
+  setTargetEmoji(targetEmoji)
+
 });
 
 // Add a callback to receive the results from processing an image
@@ -134,6 +138,12 @@ detector.addEventListener("onImageResultsSuccess", function(faces, image, timest
 
     // TODO: Call your function to run the game (define it first!)
     // <your code here>
+    if (toUnicode(targetEmoji)==toUnicode(faces[0].emojis.dominantEmoji)){
+      globalScore+=5
+      setScore(globalScore,globalScore)
+      targetEmoji=getRandomEmoji()
+      setTargetEmoji(targetEmoji)
+    }
   }
 });
 
@@ -183,6 +193,14 @@ function drawEmoji(canvas, img, face) {
 }
 
 // TODO: Define any variables and functions to implement the Mimic Me! game mechanics
+var targetEmoji=0
+var globalScore=0
+function getRandomEmoji(){
+  min = 0;
+  max = emojis.length;
+  random_emoji= Math.floor(Math.random() * (max - min)) + min;
+  return emojis[random_emoji];
+}
 
 // NOTE:
 // - Remember to call your update function from the "onImageResultsSuccess" event handler above
