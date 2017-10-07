@@ -148,15 +148,19 @@ function drawFeaturePoints(canvas, img, face) {
   // TODO: Set the stroke and/or fill style you want for each feature point marker
   // See: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D#Fill_and_stroke_styles
   // <your code here>
-  
+  ctx.strokeStyle = 'white'
+
+  ctx.beginPath();
   // Loop over each feature point in the face
   for (var id in face.featurePoints) {
     var featurePoint = face.featurePoints[id];
-
+    // console.log(featurePoint)
     // TODO: Draw feature point, e.g. as a circle using ctx.arc()
     // See: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
     // <your code here>
+    ctx.arc(featurePoint.x,featurePoint.y,3,0,2 * Math.PI)
   }
+  ctx.stroke();
 }
 
 // Draw the dominant emoji on the image
@@ -166,11 +170,16 @@ function drawEmoji(canvas, img, face) {
 
   // TODO: Set the font and style you want for the emoji
   // <your code here>
-  
+  ctx.font = "48px serif";
+
   // TODO: Draw it using ctx.strokeText() or fillText()
   // See: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillText
   // TIP: Pick a particular feature point as an anchor so that the emoji sticks to your face
   // <your code here>
+
+  var featurePoint=face.featurePoints[0]
+  ctx.fillText(face.emojis.dominantEmoji, featurePoint.x+150, featurePoint.y-150);
+  
 }
 
 // TODO: Define any variables and functions to implement the Mimic Me! game mechanics
